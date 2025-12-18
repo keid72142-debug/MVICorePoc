@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">MVICorePoc</string>
     <string name="logoipsum">Logoipsum</string>
+    <string name="sign_in_to_your_account">Sign in to your Account</string>
+    <string name="enter_your_email_and_password_to_log_in">"Enter your email and password to log in "</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or">"  Or  "</string>
+    <string name="forgot_password">Forgot Password?</string>
+
 </resources>
