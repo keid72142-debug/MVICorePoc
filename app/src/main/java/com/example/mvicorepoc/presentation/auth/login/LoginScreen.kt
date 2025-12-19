@@ -1,10 +1,11 @@
-package com.example.mvicorepoc.presentation.login
+package com.example.mvicorepoc.presentation.auth.login
 
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,12 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mvicorepoc.R
+import com.example.mvicorepoc.presentation.auth.component.TextFieldInput
+import com.example.mvicorepoc.presentation.auth.login.component.BottomOfLogin
+import com.example.mvicorepoc.presentation.auth.login.component.HeaderOfLogin
 import com.example.mvicorepoc.presentation.component.BaseButton
-import com.example.mvicorepoc.presentation.login.component.BottomOfLogin
-import com.example.mvicorepoc.presentation.login.component.HeaderOfLogin
-import com.example.mvicorepoc.presentation.login.component.TextFieldInput
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.spacing
 
@@ -38,24 +40,25 @@ fun LoginContent(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .scrollable(
-                state = rememberScrollableState { delta -> delta },
-                orientation = androidx.compose.foundation.gestures.Orientation.Vertical
-            )
+            .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .padding(MaterialTheme.spacing.s16),
     ) {
         HeaderOfLogin()
         TextFieldInput(
+            modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
             titleOfTextField = R.string.email,
-            label = R.string.email,
+            placeholder = R.string.email,
+            keyboardType = KeyboardType.Email,
             onValueChange = { email = it },
             value = email
         )
         TextFieldInput(
+            modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
             titleOfTextField = R.string.password,
-            label = R.string.password,
+            placeholder = R.string.password,
             onValueChange = { password = it },
+            keyboardType = KeyboardType.Password,
             value = password,
             passwordVisible = passwordVisible,
             onTrailingIconClick = { passwordVisible = !passwordVisible },
@@ -73,6 +76,9 @@ fun LoginContent(modifier: Modifier = Modifier) {
             )
         )
         BaseButton(
+            modifier = Modifier
+                .padding(top = MaterialTheme.spacing.s32)
+                .fillMaxWidth(),
             onButtonClick = { /*TODO*/ },
             buttonText = R.string.login
         )

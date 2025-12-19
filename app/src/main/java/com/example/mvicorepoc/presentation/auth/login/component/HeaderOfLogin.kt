@@ -1,4 +1,4 @@
-package com.example.mvicorepoc.presentation.login.component
+package com.example.mvicorepoc.presentation.auth.login.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row

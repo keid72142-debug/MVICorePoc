@@ -1,7 +1,6 @@
 package com.example.mvicorepoc.presentation.component
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -19,9 +18,7 @@ fun BaseButton(modifier: Modifier = Modifier,
 
                ) {
     Button(
-        modifier = modifier
-            .padding(top = MaterialTheme.spacing.s32)
-            .fillMaxWidth(),
+        modifier = modifier,
         onClick = { onButtonClick() },
     ) {
         Text(

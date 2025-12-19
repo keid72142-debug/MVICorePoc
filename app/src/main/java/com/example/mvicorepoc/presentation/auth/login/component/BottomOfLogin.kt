@@ -1,4 +1,4 @@
-package com.example.mvicorepoc.presentation.login.component
+package com.example.mvicorepoc.presentation.auth.login.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -62,7 +62,7 @@ fun BottomOfLogin(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(R.string.sign_up),
                 style =
-                    MaterialTheme.typography.labelSmall.copy(
+                    MaterialTheme.typography.labelMedium.copy(
                         fontWeight = FontWeight.Bold
                     ),
                 color = MaterialTheme.colorScheme.primary,
