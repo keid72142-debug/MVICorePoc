@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.mvicorepoc.presentation.auth.signup.SignupScreen
+import com.example.mvicorepoc.presentation.auth.login.LoginScreen
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MVICorePocTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { padding->
-                    SignupScreen(
+                    LoginScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(padding)

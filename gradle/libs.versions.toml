@@ -8,6 +8,11 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
+mvicore = "2.0.0"
+rxjava3 = "3.1.12"
+rxandroid3 = "3.0.2"
+rxkotlin3 = "3.0.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +29,14 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+mvicore = { group = "com.github.badoo.mvicore", name = "mvicore", version.ref = "mvicore" }
+mvicore-android = { group = "com.github.badoo.mvicore", name = "mvicore-android", version.ref = "mvicore" }
+mvicore-diff = { group = "com.github.badoo.mvicore", name = "mvicore-diff", version.ref = "mvicore" }
+mvicore-binder = { group = "com.github.badoo.mvicore", name = "binder", version.ref = "mvicore" }
+rxjava3-rxjava = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava3" }
+rxjava3-rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid3" }
+rxjava3-rxkotlin = { group = "io.reactivex.rxjava3", name = "rxkotlin", version.ref = "rxkotlin3" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

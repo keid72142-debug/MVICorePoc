@@ -1,17 +1,24 @@
 package com.example.mvicorepoc.presentation.auth.login
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,65 +33,118 @@ import com.example.mvicorepoc.presentation.auth.login.component.HeaderOfLogin
 import com.example.mvicorepoc.presentation.component.BaseButton
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.spacing
+import kotlinx.coroutines.launch
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
-    LoginContent(modifier)
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    viewModel: LoginViewModel = remember { LoginViewModel() },
+    onNavigateToHome: () -> Unit = {}
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        viewModel.news.collect { news ->
+            when (news) {
+                is LoginFeature.News.NavigateToHomeScreen -> {
+                    onNavigateToHome()
+                }
+
+                is LoginFeature.News.ShowError -> {
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(news.message)
+                    }
+                }
+
+                is LoginFeature.News.Loading -> {
+                    // Loading state is handled via UI state
+                }
+            }
+        }
+    }
+
+    Box(modifier = modifier.fillMaxSize()) {
+        LoginContent(
+            modifier = modifier,
+            loginEvents = viewModel::handleUiEvent,
+            loginUIState = uiState
+        )
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter)
+        )
+    }
 }
 
 @Composable
-fun LoginContent(modifier: Modifier = Modifier) {
+fun LoginContent(
+    modifier: Modifier = Modifier,
+    loginEvents: (LoginEvents) -> Unit,
+    loginUIState: LoginUIState
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize()
-            .padding(MaterialTheme.spacing.s16),
-    ) {
-        HeaderOfLogin()
-        TextFieldInput(
-            modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
-            titleOfTextField = R.string.email,
-            placeholder = R.string.email,
-            keyboardType = KeyboardType.Email,
-            onValueChange = { email = it },
-            value = email
-        )
-        TextFieldInput(
-            modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
-            titleOfTextField = R.string.password,
-            placeholder = R.string.password,
-            onValueChange = { password = it },
-            keyboardType = KeyboardType.Password,
-            value = password,
-            passwordVisible = passwordVisible,
-            onTrailingIconClick = { passwordVisible = !passwordVisible },
-            isPasswordType = true
-
-        )
-        Text(
-            stringResource(R.string.forgot_password),
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(top = MaterialTheme.spacing.s8),
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+    if (loginUIState.loading) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        Column(
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .fillMaxSize()
+                .padding(MaterialTheme.spacing.s16),
+        ) {
+            HeaderOfLogin()
+            TextFieldInput(
+                modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
+                titleOfTextField = R.string.email,
+                placeholder = R.string.email,
+                keyboardType = KeyboardType.Email,
+                onValueChange = { email = it },
+                value = email
             )
-        )
-        BaseButton(
-            modifier = Modifier
-                .padding(top = MaterialTheme.spacing.s32)
-                .fillMaxWidth(),
-            onButtonClick = { /*TODO*/ },
-            buttonText = R.string.login
-        )
-        BottomOfLogin()
+            TextFieldInput(
+                modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
+                titleOfTextField = R.string.password,
+                placeholder = R.string.password,
+                onValueChange = { password = it },
+                keyboardType = KeyboardType.Password,
+                value = password,
+                passwordVisible = passwordVisible,
+                onTrailingIconClick = { passwordVisible = !passwordVisible },
+                isPasswordType = true
 
-
+            )
+            Text(
+                stringResource(R.string.forgot_password),
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top = MaterialTheme.spacing.s8),
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            )
+            BaseButton(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.s32)
+                    .fillMaxWidth(),
+                onButtonClick = {
+                    loginEvents(LoginEvents.LoginButtonClicked(email, password))
+                },
+                buttonText = R.string.login
+            )
+            BottomOfLogin()
+        }
     }
 }
 
@@ -92,6 +152,9 @@ fun LoginContent(modifier: Modifier = Modifier) {
 @Composable
 fun LoginPreview() {
     MVICorePocTheme {
-        LoginContent()
+        LoginContent(
+            loginEvents = {},
+            loginUIState = LoginUIState()
+        )
     }
 }
