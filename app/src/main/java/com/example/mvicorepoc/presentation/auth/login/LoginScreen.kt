@@ -40,7 +40,8 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = remember { LoginViewModel() },
-    onNavigateToHome: () -> Unit = {}
+    onNavigateToHome: () -> Unit,
+    onNavigateToSignup: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -143,7 +144,11 @@ fun LoginContent(
                 },
                 buttonText = R.string.login
             )
-            BottomOfLogin()
+            BottomOfLogin(
+                onSignupClick = {
+                    loginEvents(LoginEvents.SignUpButtonClicked)
+                }
+            )
         }
     }
 }

@@ -17,7 +17,10 @@ import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.theme.spacing
 
 @Composable
-fun BottomOfLogin(modifier: Modifier = Modifier) {
+fun BottomOfLogin(
+    modifier: Modifier = Modifier,
+    onSignupClick: () -> Unit
+) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -55,7 +58,7 @@ fun BottomOfLogin(modifier: Modifier = Modifier) {
 
             ) {
             Text(
-                "Don’t have an account? ",
+                stringResource(R.string.don_t_have_an_account),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
 
@@ -70,7 +73,9 @@ fun BottomOfLogin(modifier: Modifier = Modifier) {
                     .align(
                         Alignment.CenterVertically
                     )
-                    .clickable { /*TODO*/ }
+                    .clickable {
+                        onSignupClick()
+                    }
             )
         }
     }

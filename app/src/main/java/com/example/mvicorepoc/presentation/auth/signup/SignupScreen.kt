@@ -27,7 +27,12 @@ import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.spacing
 
 @Composable
-fun SignupScreen(modifier: Modifier = Modifier) {
+fun SignupScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToHome: () -> Unit,
+    onNavigateToLogin: () -> Unit
+
+) {
     SignupContent(modifier)
 }
 

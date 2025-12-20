@@ -8,21 +8,30 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.mvicorepoc.presentation.auth.login.LoginScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.mvicorepoc.presentation.navigation.MVICorePocNavGraph
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
+            val navController = rememberNavController()
+
             MVICorePocTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { padding->
-                    LoginScreen(
+                Scaffold(modifier = Modifier.fillMaxSize()) { padding ->
+                    MVICorePocNavGraph(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(padding)
+                            .padding(
+                                paddingValues = padding
+                            ),
+                        navController = navController,
                     )
+
                 }
             }
         }
