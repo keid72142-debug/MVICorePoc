@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -54,12 +55,11 @@ fun LoginScreen(
 
                 is LoginFeature.News.ShowError -> {
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar(news.message)
+                        snackbarHostState.showSnackbar(
+                            news.message,
+                            duration = SnackbarDuration.Short
+                        )
                     }
-                }
-
-                is LoginFeature.News.Loading -> {
-                    // Loading state is handled via UI state
                 }
             }
         }

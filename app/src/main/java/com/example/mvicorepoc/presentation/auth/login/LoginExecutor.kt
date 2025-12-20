@@ -17,9 +17,7 @@ class LoginExecutor {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-
             .map { result -> mapToEffect(result) }
-            .startWithItem(LoginFeature.Effect.Loading(loading = true))
 
     }
 

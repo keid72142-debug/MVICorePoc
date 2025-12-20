@@ -36,7 +36,6 @@ class LoginFeature :
     }
 
     sealed class News {
-        data class Loading(val loading: Boolean) : News()
         object NavigateToHomeScreen : News()
         data class ShowError(val message: String) : News()
     }

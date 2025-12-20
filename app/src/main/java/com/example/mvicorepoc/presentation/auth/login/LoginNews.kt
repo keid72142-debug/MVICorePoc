@@ -10,7 +10,7 @@ class LoginNews :
         state: LoginFeature.State
     ): LoginFeature.News? {
         return when (effect) {
-            is LoginFeature.Effect.Loading -> LoginFeature.News.Loading(effect.loading)
+            is LoginFeature.Effect.Loading -> null
             is LoginFeature.Effect.LoginSuccess -> LoginFeature.News.NavigateToHomeScreen
             is LoginFeature.Effect.LoginError -> LoginFeature.News.ShowError(effect.message)
         }
