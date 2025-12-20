@@ -23,7 +23,6 @@ class LoginExecutor {
 
 
     private fun mapToEffect(result: ExecutionResult): LoginFeature.Effect = when (result) {
-        is ExecutionResult.HomeScreen -> LoginFeature.Effect.LoginSuccess
         is ExecutionResult.EmailEmpty -> LoginFeature.Effect.LoginError("Email cannot be empty")
         is ExecutionResult.PasswordEmpty -> LoginFeature.Effect.LoginError("Password cannot be empty")
         is ExecutionResult.InvalidEmail -> LoginFeature.Effect.LoginError("Invalid email format")

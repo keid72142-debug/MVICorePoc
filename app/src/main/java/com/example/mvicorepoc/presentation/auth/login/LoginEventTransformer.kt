@@ -6,6 +6,7 @@ class LoginEventTransformer {
 
     operator fun invoke(event: LoginEvents): LoginFeature.Wish = when (event) {
         is LoginEvents.LoginButtonClicked -> Login(event.email, event.password)
+        LoginEvents.SignUpButtonClicked -> LoginFeature.Wish.NavigateToSignupScreen
 
     }
 }

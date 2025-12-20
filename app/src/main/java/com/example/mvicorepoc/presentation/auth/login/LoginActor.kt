@@ -23,6 +23,7 @@ class LoginActor() : Actor<LoginFeature.State, LoginFeature.Action, LoginFeature
     private fun executeWish(wish: LoginFeature.Wish): Observable<out LoginFeature.Effect> =
         when (wish) {
             is LoginFeature.Wish.Login -> checkUserValidation(wish)
+            LoginFeature.Wish.NavigateToSignupScreen -> Observable.just(LoginFeature.Effect.NavigateToSignupScreen)
         }
 
     private fun checkUserValidation(wish: LoginFeature.Wish.Login): Observable<LoginFeature.Effect> {

@@ -14,12 +14,16 @@ class LoginFeature :
 
     sealed class Wish {
         data class Login(val email: String, val password: String) : Wish()
+        object NavigateToSignupScreen : Wish()
     }
 
     sealed class Effect {
         data class Loading(val loading: Boolean) : Effect()
         object LoginSuccess : Effect()
         data class LoginError(val message: String) : Effect()
+
+        object NavigateToSignupScreen : Effect()
+
     }
 
 
@@ -37,6 +41,8 @@ class LoginFeature :
 
     sealed class News {
         object NavigateToHomeScreen : News()
+        object NavigateToSignupScreen : News()
+
         data class ShowError(val message: String) : News()
     }
 }

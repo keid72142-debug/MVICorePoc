@@ -6,8 +6,5 @@ sealed class ExecutionResult {
     object InvalidEmail : ExecutionResult()
     object PasswordTooShort : ExecutionResult()
     object ValidAuthData : ExecutionResult()
-    data class HomeScreen(
-        val loading: Boolean = false,
-    ) : ExecutionResult()
 
 }

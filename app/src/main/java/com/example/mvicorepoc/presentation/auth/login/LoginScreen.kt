@@ -62,6 +62,10 @@ fun LoginScreen(
                         )
                     }
                 }
+
+                LoginFeature.News.NavigateToSignupScreen -> {
+                    onNavigateToSignup()
+                }
             }
         }
     }
