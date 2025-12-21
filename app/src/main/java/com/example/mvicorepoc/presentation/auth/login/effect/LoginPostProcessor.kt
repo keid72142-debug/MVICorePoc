@@ -1,6 +1,7 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.effect
 
 import com.badoo.mvicore.element.PostProcessor
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 
 class LoginPostProcessor :
     PostProcessor<LoginFeature.Action, LoginFeature.Effect, LoginFeature.State> {

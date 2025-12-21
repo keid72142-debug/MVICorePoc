@@ -1,6 +1,9 @@
 package com.example.mvicorepoc.presentation.auth.login
 
 import com.badoo.mvicore.feature.BaseFeature
+import com.example.mvicorepoc.presentation.auth.login.effect.LoginNews
+import com.example.mvicorepoc.presentation.auth.login.effect.LoginPostProcessor
+import com.example.mvicorepoc.presentation.auth.login.effect.LoginReducer
 
 class LoginFeature :
     BaseFeature<LoginFeature.Wish, LoginFeature.Action, LoginFeature.Effect, LoginFeature.State, LoginFeature.News>(

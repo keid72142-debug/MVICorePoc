@@ -1,6 +1,7 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.effect
 
 import com.badoo.mvicore.element.NewsPublisher
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.News.NavigateToHomeScreen
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.News.NavigateToSignupScreen
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.News.ShowError

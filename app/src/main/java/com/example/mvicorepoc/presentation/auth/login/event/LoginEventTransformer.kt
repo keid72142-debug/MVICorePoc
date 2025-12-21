@@ -1,5 +1,6 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.event
 
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.Wish.Login
 
 class LoginEventTransformer {

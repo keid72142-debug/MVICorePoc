@@ -1,4 +1,4 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,8 +29,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.auth.component.TextFieldInput
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.component.BottomOfLogin
 import com.example.mvicorepoc.presentation.auth.login.component.HeaderOfLogin
+import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import com.example.mvicorepoc.presentation.component.BaseButton
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.spacing

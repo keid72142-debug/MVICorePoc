@@ -1,7 +1,10 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
+import com.example.mvicorepoc.presentation.auth.login.event.LoginEventTransformer
+import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -85,4 +88,3 @@ class LoginViewModel(
         feature.dispose()
     }
 }
-

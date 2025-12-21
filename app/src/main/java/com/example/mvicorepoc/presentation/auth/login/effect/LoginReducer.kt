@@ -1,6 +1,7 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.effect
 
 import com.badoo.mvicore.element.Reducer
+import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.State.ErrorState
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.State.InitState
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature.State.LoadingState

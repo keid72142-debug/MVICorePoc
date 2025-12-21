@@ -1,4 +1,4 @@
-package com.example.mvicorepoc.presentation.auth.login
+package com.example.mvicorepoc.presentation.auth.login.event
 
 
 sealed class LoginEvents {
