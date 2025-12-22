@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.event.LoginEventTransformer
 import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,11 +15,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class LoginViewModel(
-    private val feature: LoginFeature = LoginFeature()
 ) : ViewModel() {
 
     private val transformer = LoginEventTransformer()
+    private val feature: LoginFeature = LoginFeature()
 
     private var _uiState = MutableStateFlow(LoginUIState())
     val uiState = _uiState.asStateFlow()
@@ -43,9 +45,9 @@ class LoginViewModel(
                     _uiState.emit(
                         when (state) {
                             is LoginFeature.State.InitState -> LoginUIState()
-                            is LoginFeature.State.LoadingState -> LoginUIState(loading = state.loading)
-                            is LoginFeature.State.SuccessState -> LoginUIState(loading = false)
-                            is LoginFeature.State.ErrorState -> LoginUIState(loading = false)
+                            is LoginFeature.State.LoadingState -> LoginUIState(isLoading = state.loading)
+                            is LoginFeature.State.SuccessState -> LoginUIState(isLoading = false)
+                            is LoginFeature.State.ErrorState -> LoginUIState(isLoading = false)
                         }
                     )
                 }
@@ -53,7 +55,7 @@ class LoginViewModel(
 
             override fun onError(e: Throwable) {
                 viewModelScope.launch {
-                    _uiState.emit(LoginUIState(loading = false))
+                    _uiState.emit(LoginUIState(isLoading = false))
                 }
             }
 

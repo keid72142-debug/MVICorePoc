@@ -8,8 +8,7 @@ import androidx.compose.ui.unit.dp
 
 // Core spacing tokens (kept for compatibility)
 data class Spacing(
-    val s0: Dp = 0.dp,
-    val s1: Dp = 4.dp,
+    val s4: Dp = 4.dp,
     val s8: Dp = 8.dp,
     val s12: Dp = 12.dp,
     val s16: Dp = 16.dp,

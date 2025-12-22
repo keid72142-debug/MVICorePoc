@@ -19,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.auth.component.TextFieldInput
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature
@@ -36,18 +36,16 @@ import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import com.example.mvicorepoc.presentation.component.BaseButton
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.spacing
-import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = remember { LoginViewModel() },
     onNavigateToHome: () -> Unit,
     onNavigateToSignup: () -> Unit
 ) {
+    val viewModel: LoginViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         viewModel.news.collect { news ->
@@ -57,15 +55,13 @@ fun LoginScreen(
                 }
 
                 is LoginFeature.News.ShowError -> {
-                    coroutineScope.launch {
                         snackbarHostState.showSnackbar(
                             news.message,
                             duration = SnackbarDuration.Short
                         )
-                    }
                 }
 
-                LoginFeature.News.NavigateToSignupScreen -> {
+                is LoginFeature.News.NavigateToSignupScreen -> {
                     onNavigateToSignup()
                 }
             }
@@ -96,7 +92,7 @@ fun LoginContent(
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
 
-    if (loginUIState.loading) {
+    if (loginUIState.isLoading) {
         Box(
             modifier = modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
