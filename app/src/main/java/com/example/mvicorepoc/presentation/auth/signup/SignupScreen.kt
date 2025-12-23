@@ -37,7 +37,9 @@ fun SignupScreen(
 }
 
 @Composable
-fun SignupContent(modifier: Modifier = Modifier) {
+fun SignupContent(
+    modifier: Modifier = Modifier,
+) {
 
     var email by remember { mutableStateOf("") }
     var fullName by remember { mutableStateOf("") }
@@ -56,7 +58,11 @@ fun SignupContent(modifier: Modifier = Modifier) {
             .padding(MaterialTheme.spacing.s16),
     ) {
 
-        TopBar()
+        TopBar(
+            backButtonClick = {
+
+            }
+        )
 
         Text(
             modifier = Modifier.padding(top = MaterialTheme.spacing.s32),

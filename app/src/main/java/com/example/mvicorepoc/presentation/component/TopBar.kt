@@ -16,7 +16,7 @@ import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    backButtonClick: () -> Unit = {}
+    backButtonClick: () -> Unit
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -39,6 +39,8 @@ fun TopBar(
 @Composable
 fun TopBarPreview() {
     MVICorePocTheme() {
-        TopBar()
+        TopBar(
+            backButtonClick = {}
+        )
     }
 }
