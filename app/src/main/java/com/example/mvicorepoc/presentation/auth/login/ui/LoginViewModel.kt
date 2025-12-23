@@ -18,10 +18,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    private val feature: LoginFeature,
+    private val transformer: LoginEventTransformer
 ) : ViewModel() {
 
-    private val transformer = LoginEventTransformer()
-    private val feature: LoginFeature = LoginFeature()
 
     private var _uiState = MutableStateFlow(LoginUIState())
     val uiState = _uiState.asStateFlow()

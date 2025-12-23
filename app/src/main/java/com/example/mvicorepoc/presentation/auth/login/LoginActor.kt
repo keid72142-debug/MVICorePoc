@@ -2,11 +2,13 @@ package com.example.mvicorepoc.presentation.auth.login
 
 import com.badoo.mvicore.element.Actor
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
 
-class LoginActor() : Actor<LoginFeature.State, LoginFeature.Action, LoginFeature.Effect> {
+class LoginActor @Inject constructor(
+    private var loginExecutor: LoginExecutor
+) : Actor<LoginFeature.State, LoginFeature.Action, LoginFeature.Effect> {
 
-    private lateinit var loginExecutor: LoginExecutor
 
     override fun invoke(
         state: LoginFeature.State, action: LoginFeature.Action
@@ -27,7 +29,6 @@ class LoginActor() : Actor<LoginFeature.State, LoginFeature.Action, LoginFeature
         }
 
     private fun checkUserValidation(wish: LoginFeature.Wish.Login): Observable<LoginFeature.Effect> {
-        if (!::loginExecutor.isInitialized) loginExecutor = LoginExecutor()
         return loginExecutor.checkUserValidation(wish)
 
     }

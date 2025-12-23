@@ -7,8 +7,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.Callable
+import javax.inject.Inject
 
-class LoginExecutor {
+class LoginExecutor @Inject constructor() {
     fun checkUserValidation(wish: LoginFeature.Wish.Login): Observable<LoginFeature.Effect> {
         return Observable.fromCallable<ExecutionResult>(
             Callable {

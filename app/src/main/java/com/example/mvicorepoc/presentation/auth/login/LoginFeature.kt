@@ -4,11 +4,14 @@ import com.badoo.mvicore.feature.BaseFeature
 import com.example.mvicorepoc.presentation.auth.login.effect.LoginNews
 import com.example.mvicorepoc.presentation.auth.login.effect.LoginPostProcessor
 import com.example.mvicorepoc.presentation.auth.login.effect.LoginReducer
+import javax.inject.Inject
 
-class LoginFeature :
+class LoginFeature @Inject constructor(
+    actor: LoginActor,
+) :
     BaseFeature<LoginFeature.Wish, LoginFeature.Action, LoginFeature.Effect, LoginFeature.State, LoginFeature.News>(
         initialState = State.InitState,
-        actor = LoginActor(),
+        actor = actor,
         reducer = LoginReducer(),
         postProcessor = LoginPostProcessor(),
         newsPublisher = LoginNews(),
