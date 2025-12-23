@@ -2,7 +2,6 @@ package com.example.mvicorepoc.presentation.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvicorepoc.presentation.home.HomeActor
 import com.example.mvicorepoc.presentation.home.HomeFeature
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Observer
@@ -14,9 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val homeActor: HomeActor
+    private val feature: HomeFeature
 ) : ViewModel() {
-    private val feature: HomeFeature = HomeFeature(homeActor)
 
     private var _uiState = MutableStateFlow(HomeUIState())
     val uiState = _uiState.asStateFlow()

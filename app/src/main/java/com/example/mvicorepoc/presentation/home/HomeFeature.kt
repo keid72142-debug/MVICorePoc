@@ -6,7 +6,9 @@ import com.example.mvicorepoc.presentation.home.effect.HomePostProcessor
 import com.example.mvicorepoc.presentation.home.effect.HomeReducer
 import com.example.mvicorepoc.presentation.home.ui.Product
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class HomeFeature @Inject constructor(
     actor: HomeActor,
 ) :
