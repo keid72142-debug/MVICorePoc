@@ -13,7 +13,7 @@ fun MVICorePocNavGraph(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = AuthGraph.Login
+        startDestination = HomeGraph.Home
     )
     {
         authRoute(navController)

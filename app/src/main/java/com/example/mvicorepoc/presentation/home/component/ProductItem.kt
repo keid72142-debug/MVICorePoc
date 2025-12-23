@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mvicorepoc.R
-import com.example.mvicorepoc.presentation.home.Product
+import com.example.mvicorepoc.presentation.home.ui.Product
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import com.example.mvicorepoc.presentation.theme.cornerSizes
 import com.example.mvicorepoc.presentation.theme.spacing

@@ -1,4 +1,4 @@
-package com.example.mvicorepoc
+package com.example.mvicorepoc.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

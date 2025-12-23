@@ -1,4 +1,4 @@
-package com.example.mvicorepoc.presentation.home
+package com.example.mvicorepoc.presentation.home.ui
 
 data class HomeUIState(
     val isLoading: Boolean = false,
