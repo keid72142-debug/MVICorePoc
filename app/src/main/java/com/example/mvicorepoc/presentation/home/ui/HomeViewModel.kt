@@ -3,14 +3,12 @@ package com.example.mvicorepoc.presentation.home.ui
 import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import com.example.mvicorepoc.presentation.base.BaseViewModel
 import com.example.mvicorepoc.presentation.home.HomeFeature
-import com.example.mvicorepoc.presentation.home.event.HomeEventTransformer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     feature: HomeFeature,
-    private val transformer: HomeEventTransformer
 ) : BaseViewModel<
         HomeFeature,
         HomeUIState,
