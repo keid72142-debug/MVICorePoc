@@ -1,4 +1,5 @@
 package com.example.mvicorepoc.presentation.home.event
 
-class HomeEventTransformer {
-}
+import javax.inject.Inject
+
+class HomeEventTransformer @Inject constructor() {}

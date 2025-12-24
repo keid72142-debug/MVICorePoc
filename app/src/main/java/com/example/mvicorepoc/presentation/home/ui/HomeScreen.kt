@@ -28,7 +28,7 @@ import com.example.mvicorepoc.presentation.theme.spacing
 fun HomeScreen(modifier: Modifier = Modifier) {
 
     val viewModel: HomeViewModel = hiltViewModel()
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiStateFlow.collectAsState()
     HomeContent(
         modifier = modifier,
         homeUiState = uiState

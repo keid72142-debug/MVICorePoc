@@ -44,18 +44,18 @@ fun LoginScreen(
     onNavigateToSignup: () -> Unit
 ) {
     val viewModel: LoginViewModel = hiltViewModel()
-    val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = remember { SnackbarHostState() }
+    val uiState by viewModel.uiStateFlow.collectAsState()
+    val snackBarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(Unit) {
-        viewModel.news.collect { news ->
+        viewModel.newsFlow.collect { news ->
             when (news) {
                 is LoginFeature.News.NavigateToHomeScreen -> {
                     onNavigateToHome()
                 }
 
                 is LoginFeature.News.ShowError -> {
-                        snackbarHostState.showSnackbar(
+                    snackBarHostState.showSnackbar(
                             news.message,
                             duration = SnackbarDuration.Short
                         )
@@ -71,12 +71,12 @@ fun LoginScreen(
     Box(modifier = modifier.fillMaxSize()) {
         LoginContent(
             modifier = modifier,
-            loginEvents = viewModel::handleUiEvent,
+            loginEvents = { viewModel.handleUiEvent(it) },
             loginUIState = uiState
         )
 
         SnackbarHost(
-            hostState = snackbarHostState,
+            hostState = snackBarHostState,
             modifier = Modifier.align(Alignment.BottomCenter)
         )
     }

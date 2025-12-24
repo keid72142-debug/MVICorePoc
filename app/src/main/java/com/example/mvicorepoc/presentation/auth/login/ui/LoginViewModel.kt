@@ -1,93 +1,56 @@
 package com.example.mvicorepoc.presentation.auth.login.ui
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature
 import com.example.mvicorepoc.presentation.auth.login.event.LoginEventTransformer
 import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
+import com.example.mvicorepoc.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.Disposable
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val feature: LoginFeature,
+    feature: LoginFeature,
     private val transformer: LoginEventTransformer
-) : ViewModel() {
+) : BaseViewModel<
+        LoginFeature,
+        LoginUIState,
+        LoginFeature.State,
+        LoginFeature.News,
+        LoginFeature.Wish,
+        LoginFeature.Action,
+        LoginFeature.Effect>(
+    feature = feature,
+    initState = LoginUIState(),
+) {
 
-
-    private var _uiState = MutableStateFlow(LoginUIState())
-    val uiState = _uiState.asStateFlow()
-
-
-    private val _news = MutableSharedFlow<LoginFeature.News>()
-    val news: SharedFlow<LoginFeature.News> = _news.asSharedFlow()
-
-    init {
-        observeState()
-        observeNews()
+    override fun handleUiEvent(event: LoginEvents) {
+        val wish = transformer(event)
+        feature.accept(wish)
     }
 
-    private fun observeState() {
-        feature.subscribe(object : Observer<LoginFeature.State> {
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onNext(state: LoginFeature.State) {
-                viewModelScope.launch {
-                    _uiState.emit(
-                        when (state) {
-                            is LoginFeature.State.InitState -> LoginUIState()
-                            is LoginFeature.State.LoadingState -> LoginUIState(isLoading = state.loading)
-                            is LoginFeature.State.SuccessState -> LoginUIState(isLoading = false)
-                            is LoginFeature.State.ErrorState -> LoginUIState(isLoading = false)
-                        }
-                    )
-                }
-            }
-
-            override fun onError(e: Throwable) {
-                viewModelScope.launch {
-                    _uiState.emit(LoginUIState(isLoading = false))
-                }
-            }
-
-            override fun onComplete() {
-
-            }
-
-        })
+    override suspend fun handleNews(news: LoginFeature.News) {
+        _newsState.emit(news)
     }
 
-    private fun observeNews() {
-        feature.news.subscribe(object : Observer<LoginFeature.News> {
-            override fun onSubscribe(d: Disposable) {}
-            override fun onNext(item: LoginFeature.News) {
-                viewModelScope.launch {
-                    _news.emit(item)
-                }
-            }
-
-            override fun onError(e: Throwable) {}
-            override fun onComplete() {}
-        })
+    override fun handleNewsError(error: Throwable) {
+        _uiStateFlow.value = LoginUIState(isLoading = false)
 
     }
 
-    fun handleUiEvent(event: LoginEvents) {
-        feature.accept(transformer(event))
+    override suspend fun handeState(featureState: LoginFeature.State) {
+        _uiStateFlow.emit(
+            when (featureState) {
+                is LoginFeature.State.InitState -> LoginUIState()
+                is LoginFeature.State.LoadingState -> LoginUIState(isLoading = featureState.loading)
+                is LoginFeature.State.SuccessState -> LoginUIState(isLoading = false)
+                is LoginFeature.State.ErrorState -> LoginUIState(isLoading = false)
+            }
+        )
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        feature.dispose()
+    override fun handleStateError(error: Throwable) {
+        _uiStateFlow.value = LoginUIState(isLoading = false)
     }
+
+
 }
