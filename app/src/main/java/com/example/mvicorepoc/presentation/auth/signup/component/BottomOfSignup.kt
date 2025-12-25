@@ -16,7 +16,10 @@ import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.theme.spacing
 
 @Composable
-fun BottomOfSignup(modifier: Modifier = Modifier) {
+fun BottomOfSignup(
+    modifier: Modifier = Modifier,
+    onLoginClick: () -> Unit = {}
+) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -44,7 +47,7 @@ fun BottomOfSignup(modifier: Modifier = Modifier) {
                     .align(
                         Alignment.CenterVertically
                     )
-                    .clickable { /*TODO*/ }
+                    .clickable { onLoginClick() }
             )
         }
     }

@@ -33,7 +33,7 @@ fun NavGraphBuilder.authRoute(navController: NavHostController) {
     composable<AuthGraph.Signup> {
         SignupScreen(
             onNavigateToHome = {
-                navController.navigate(HomeGraph)
+                navController.navigate(HomeGraph.Home)
             },
             onNavigateToLogin = {
                 navController.navigate(AuthGraph.Login)
