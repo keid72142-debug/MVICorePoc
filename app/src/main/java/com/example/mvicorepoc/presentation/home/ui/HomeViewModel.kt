@@ -1,8 +1,8 @@
 package com.example.mvicorepoc.presentation.home.ui
 
-import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import com.example.mvicorepoc.presentation.base.BaseViewModel
 import com.example.mvicorepoc.presentation.home.HomeFeature
+import com.example.mvicorepoc.presentation.home.event.HomeEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +16,8 @@ class HomeViewModel @Inject constructor(
         HomeFeature.News,
         HomeFeature.Wish,
         HomeFeature.Action,
-        HomeFeature.Effect>(
+        HomeFeature.Effect,
+        HomeEvent>(
     feature = feature,
     initState = HomeUIState()
 ) {
@@ -55,7 +56,9 @@ class HomeViewModel @Inject constructor(
 
     }
 
-    override fun handleUiEvent(event: LoginEvents) {}
+    override fun handleUiEvent(event: HomeEvent) {
+    }
+
 
 
     override fun onCleared() {

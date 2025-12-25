@@ -18,7 +18,8 @@ class LoginViewModel @Inject constructor(
         LoginFeature.News,
         LoginFeature.Wish,
         LoginFeature.Action,
-        LoginFeature.Effect>(
+        LoginFeature.Effect,
+        LoginEvents>(
     feature = feature,
     initState = LoginUIState(),
 ) {

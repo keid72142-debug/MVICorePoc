@@ -3,7 +3,6 @@ package com.example.mvicorepoc.presentation.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.badoo.mvicore.feature.BaseFeature
-import com.example.mvicorepoc.presentation.auth.login.event.LoginEvents
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +18,8 @@ abstract class BaseViewModel<
         News : Any,
         Wish : Any,
         Action : Any,
-        Effect : Any>(
+        Effect : Any,
+        Event : Any>(
     val feature: BaseFeature<Wish, Action, Effect, State, News>,
     initState: UIState,
 ) : ViewModel() {
@@ -40,7 +40,7 @@ abstract class BaseViewModel<
     abstract suspend fun handeState(featureState: State)
     abstract fun handleStateError(error: Throwable)
 
-    abstract fun handleUiEvent(event: LoginEvents)
+    abstract fun handleUiEvent(event: Event)
 
     private fun observeState() {
         feature.subscribe(object : Observer<State> {
