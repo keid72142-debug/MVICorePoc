@@ -38,7 +38,9 @@ fun TextFieldInput(
     isError: Boolean = false
 ) {
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .shake(isError),
     ) {
         Text(
             text = stringResource(titleOfTextField),
