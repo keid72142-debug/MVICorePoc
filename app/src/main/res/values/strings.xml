@@ -18,5 +18,9 @@
     <string name="phone_number">Phone Number</string>
     <string name="create_an_account_to_continue">Create an account to continue!</string>
     <string name="don_t_have_an_account">"Don’t have an account? "</string>
+    <string name="email_cannot_be_empty">Email cannot be empty</string>
+    <string name="password_cannot_be_empty">Password cannot be empty</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="password_is_too_short">Password is too short</string>
 
 </resources>

@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -46,6 +47,7 @@ fun LoginScreen(
     val viewModel: LoginViewModel = hiltViewModel()
     val uiState by viewModel.uiStateFlow.collectAsState()
     val snackBarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.newsFlow.collect { news ->
@@ -56,9 +58,9 @@ fun LoginScreen(
 
                 is LoginFeature.News.ShowError -> {
                     snackBarHostState.showSnackbar(
-                            news.message,
-                            duration = SnackbarDuration.Short
-                        )
+                        context.getString(news.message),
+                        duration = SnackbarDuration.Short
+                    )
                 }
 
                 is LoginFeature.News.NavigateToSignupScreen -> {
@@ -113,7 +115,8 @@ fun LoginContent(
                 placeholder = R.string.email,
                 keyboardType = KeyboardType.Email,
                 onValueChange = { email = it },
-                value = email
+                value = email,
+                isError = loginUIState.emailError != null
             )
             TextFieldInput(
                 modifier = Modifier.padding(top = MaterialTheme.spacing.s32),
@@ -124,7 +127,8 @@ fun LoginContent(
                 value = password,
                 passwordVisible = passwordVisible,
                 onTrailingIconClick = { passwordVisible = !passwordVisible },
-                isPasswordType = true
+                isPasswordType = true,
+                isError = loginUIState.passwordError != null
 
             )
             Text(

@@ -1,6 +1,7 @@
 package com.example.mvicorepoc.presentation.auth.login
 
 
+import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.auth.login.component.ExecutionResult
 import com.example.mvicorepoc.presentation.auth.login.utils.validateCredentials
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -18,18 +19,17 @@ class LoginExecutor @Inject constructor() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .map { result -> mapToEffect(result) }
+            .flatMap { result -> Observable.just(mapToEffect(result)) }
 
     }
 
 
     private fun mapToEffect(result: ExecutionResult): LoginFeature.Effect = when (result) {
-        is ExecutionResult.EmailEmpty -> LoginFeature.Effect.LoginError("Email cannot be empty")
-        is ExecutionResult.PasswordEmpty -> LoginFeature.Effect.LoginError("Password cannot be empty")
-        is ExecutionResult.InvalidEmail -> LoginFeature.Effect.LoginError("Invalid email format")
-        is ExecutionResult.PasswordTooShort -> LoginFeature.Effect.LoginError("Password is too short")
+        is ExecutionResult.EmailEmpty -> LoginFeature.Effect.EmailError(R.string.email_cannot_be_empty)
+        is ExecutionResult.InvalidEmail -> LoginFeature.Effect.EmailError(R.string.invalid_email_format)
+        is ExecutionResult.PasswordEmpty -> LoginFeature.Effect.PasswordError(R.string.password_cannot_be_empty)
+        is ExecutionResult.PasswordTooShort -> LoginFeature.Effect.PasswordError(R.string.password_is_too_short)
         is ExecutionResult.ValidAuthData -> LoginFeature.Effect.LoginSuccess
     }
-
 
 }

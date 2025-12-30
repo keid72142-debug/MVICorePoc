@@ -23,10 +23,11 @@ class LoginFeature @Inject constructor(
         object NavigateToSignupScreen : Wish()
     }
 
-    sealed class Effect {
+    sealed class Effect(open val errorMessage: Int? = null) {
         data class Loading(val loading: Boolean) : Effect()
         object LoginSuccess : Effect()
-        data class LoginError(val message: String) : Effect()
+        data class PasswordError(override val errorMessage: Int) : Effect(errorMessage)
+        data class EmailError(override val errorMessage: Int) : Effect(errorMessage)
 
         object NavigateToSignupScreen : Effect()
 
@@ -37,7 +38,9 @@ class LoginFeature @Inject constructor(
         object InitState : State()
         data class LoadingState(val loading: Boolean) : State()
         object SuccessState : State()
-        data class ErrorState(val message: String) : State()
+        data class EmailErrorState(val message: Int) : State()
+        data class PasswordErrorState(val message: Int) : State()
+
     }
 
     sealed class Action {
@@ -49,6 +52,6 @@ class LoginFeature @Inject constructor(
         object NavigateToHomeScreen : News()
         object NavigateToSignupScreen : News()
 
-        data class ShowError(val message: String) : News()
+        data class ShowError(val message: Int) : News()
     }
 }

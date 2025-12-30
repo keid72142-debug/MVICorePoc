@@ -16,7 +16,8 @@ class LoginNews :
         return when (effect) {
             is LoginFeature.Effect.Loading -> null
             is LoginFeature.Effect.LoginSuccess -> NavigateToHomeScreen
-            is LoginFeature.Effect.LoginError -> ShowError(effect.message)
+            is LoginFeature.Effect.PasswordError -> ShowError(effect.errorMessage)
+            is LoginFeature.Effect.EmailError -> ShowError(effect.errorMessage)
             LoginFeature.Effect.NavigateToSignupScreen -> NavigateToSignupScreen
 
         }

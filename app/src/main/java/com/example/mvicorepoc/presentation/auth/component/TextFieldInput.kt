@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,6 +58,11 @@ fun TextFieldInput(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
+            colors = OutlinedTextFieldDefaults.colors(
+                errorLabelColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+                errorBorderColor = if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+
+            ),
             isError = isError,
             visualTransformation = if (isPasswordType) if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation() else VisualTransformation.None,
             trailingIcon = {
@@ -83,7 +89,8 @@ private fun TextFieldInputPreview() {
             titleOfTextField = R.string.email,
             placeholder = R.string.email,
             onValueChange = {},
-            value = ""
+            value = "sdfsdfsd",
+            isError = true
 
         )
     }

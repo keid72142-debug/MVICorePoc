@@ -35,7 +35,6 @@ class LoginViewModel @Inject constructor(
 
     override fun handleNewsError(error: Throwable) {
         _uiStateFlow.value = LoginUIState(isLoading = false)
-
     }
 
     override suspend fun handeState(featureState: LoginFeature.State) {
@@ -44,7 +43,15 @@ class LoginViewModel @Inject constructor(
                 is LoginFeature.State.InitState -> LoginUIState()
                 is LoginFeature.State.LoadingState -> LoginUIState(isLoading = featureState.loading)
                 is LoginFeature.State.SuccessState -> LoginUIState(isLoading = false)
-                is LoginFeature.State.ErrorState -> LoginUIState(isLoading = false)
+                is LoginFeature.State.EmailErrorState -> LoginUIState(
+                    isLoading = false,
+                    emailError = featureState.message
+                )
+
+                is LoginFeature.State.PasswordErrorState -> LoginUIState(
+                    isLoading = false,
+                    passwordError = featureState.message
+                )
             }
         )
     }
