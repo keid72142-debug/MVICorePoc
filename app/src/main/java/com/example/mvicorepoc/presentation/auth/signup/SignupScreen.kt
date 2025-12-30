@@ -10,8 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mvicorepoc.LocalSnackbarHostState
 import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.auth.component.TextFieldInput
 import com.example.mvicorepoc.presentation.auth.signup.component.BottomOfSignup
@@ -47,7 +46,7 @@ fun SignupScreen(
 ) {
     val viewModel: SignupViewModel = hiltViewModel()
     val uiState by viewModel.uiStateFlow.collectAsState()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = LocalSnackbarHostState.current
 
     LaunchedEffect(Unit) {
         viewModel.newsFlow.collect { news ->
@@ -57,7 +56,7 @@ fun SignupScreen(
                 }
 
                 is SignupFeature.News.ShowError -> {
-                    snackBarHostState.showSnackbar(
+                    snackbarHostState.showSnackbar(
                         news.message,
                         duration = SnackbarDuration.Short
                     )
@@ -70,18 +69,11 @@ fun SignupScreen(
         }
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        SignupContent(
-            modifier = modifier,
-            signupEvents = { viewModel.handleUiEvent(it) },
-            signupUIState = uiState
-        )
-
-        SnackbarHost(
-            hostState = snackBarHostState,
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
-    }
+    SignupContent(
+        modifier = modifier,
+        signupEvents = { viewModel.handleUiEvent(it) },
+        signupUIState = uiState
+    )
 }
 
 @Composable

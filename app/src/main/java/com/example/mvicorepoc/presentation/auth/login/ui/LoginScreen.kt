@@ -10,8 +10,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mvicorepoc.LocalSnackbarHostState
 import com.example.mvicorepoc.R
 import com.example.mvicorepoc.presentation.auth.component.TextFieldInput
 import com.example.mvicorepoc.presentation.auth.login.LoginFeature
@@ -46,7 +45,7 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = hiltViewModel()
     val uiState by viewModel.uiStateFlow.collectAsState()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackbarHostState = LocalSnackbarHostState.current
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -57,7 +56,7 @@ fun LoginScreen(
                 }
 
                 is LoginFeature.News.ShowError -> {
-                    snackBarHostState.showSnackbar(
+                    snackbarHostState.showSnackbar(
                         context.getString(news.message),
                         duration = SnackbarDuration.Short
                     )
@@ -70,18 +69,11 @@ fun LoginScreen(
         }
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        LoginContent(
-            modifier = modifier,
-            loginEvents = { viewModel.handleUiEvent(it) },
-            loginUIState = uiState
-        )
-
-        SnackbarHost(
-            hostState = snackBarHostState,
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
-    }
+    LoginContent(
+        modifier = modifier,
+        loginEvents = { viewModel.handleUiEvent(it) },
+        loginUIState = uiState
+    )
 }
 
 @Composable
