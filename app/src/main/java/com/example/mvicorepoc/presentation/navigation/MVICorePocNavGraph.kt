@@ -1,23 +1,32 @@
 package com.example.mvicorepoc.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.scene.DialogSceneStrategy
+import androidx.navigation3.ui.NavDisplay
 
 @Composable
 fun MVICorePocNavGraph(
     modifier: Modifier,
-    navController: NavHostController,
 ) {
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = AuthGraph.Login
+    val navigationState = rememberNavigationState(
+        startRoute = AuthGraph.Login,
+        topLevelRoutes = setOf(AuthGraph.Login, AuthGraph.Signup, HomeGraph.Home)
     )
-    {
-        authRoute(navController)
-        homeRoute()
+    val navigator = remember { Navigator(navigationState) }
 
+    val entryProvider = entryProvider {
+        authRoute(navigator)
+        homeRoute()
     }
+
+
+    NavDisplay(
+        modifier = modifier,
+        entries = navigationState.toEntries(entryProvider),
+        onBack = { navigator.goBack() },
+        sceneStrategy = remember { DialogSceneStrategy() }
+    )
 }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
 import com.example.mvicorepoc.presentation.navigation.MVICorePocNavGraph
 import com.example.mvicorepoc.presentation.theme.MVICorePocTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +31,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val navController = rememberNavController()
             val snackbarHostState = remember { SnackbarHostState() }
 
             MVICorePocTheme {
@@ -45,7 +43,6 @@ class MainActivity : ComponentActivity() {
                                     .padding(
                                         paddingValues = padding
                                     ),
-                                navController = navController,
                             )
 
                             SnackbarHost(

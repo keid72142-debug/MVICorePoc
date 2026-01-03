@@ -1,25 +1,24 @@
 package com.example.mvicorepoc.presentation.navigation
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
 import com.example.mvicorepoc.presentation.auth.login.ui.LoginScreen
 import com.example.mvicorepoc.presentation.auth.signup.SignupScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-class AuthGraph {
+class AuthGraph : NavKey {
     @Serializable
-    object Login
+    object Login : NavKey
+
 
     @Serializable
-    object Signup
+    object Signup : NavKey
 }
 
 
-fun NavGraphBuilder.authRoute(navController: NavHostController) {
-
-    composable<AuthGraph.Login> {
+fun EntryProviderScope<NavKey>.authRoute(navController: Navigator) {
+    entry<AuthGraph.Login> {
         LoginScreen(
             onNavigateToHome = {
                 navController.navigate(HomeGraph.Home)
@@ -28,9 +27,8 @@ fun NavGraphBuilder.authRoute(navController: NavHostController) {
                 navController.navigate(AuthGraph.Signup)
             }
         )
-
     }
-    composable<AuthGraph.Signup> {
+    entry<AuthGraph.Signup> {
         SignupScreen(
             onNavigateToHome = {
                 navController.navigate(HomeGraph.Home)

@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.rxjava3.rxjava)
     implementation(libs.rxjava3.rxandroid)
     implementation(libs.rxjava3.rxkotlin)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.navigation3.ui)
     testImplementation(libs.junit)
     implementation(libs.hilt.android)
 //    implementation(libs.androidx.lifecycle.process)
@@ -74,4 +74,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+
 }

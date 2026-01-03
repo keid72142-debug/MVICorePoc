@@ -1,18 +1,18 @@
 package com.example.mvicorepoc.presentation.navigation
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
 import com.example.mvicorepoc.presentation.home.ui.HomeScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeGraph {
+object HomeGraph : NavKey {
     @Serializable
-    object Home
+    object Home : NavKey
 }
 
-fun NavGraphBuilder.homeRoute() {
-    composable<HomeGraph.Home> {
+fun EntryProviderScope<NavKey>.homeRoute() {
+    entry<HomeGraph.Home> {
         HomeScreen()
     }
 }
